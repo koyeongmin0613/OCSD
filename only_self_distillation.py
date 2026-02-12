@@ -386,7 +386,7 @@ if __name__ == "__main__":
     ftc_root = "/mnt/c/Users/User/Desktop/Dataset/FTC/dataset/wav"  # metadata.csv 있는 폴더로 수정
     student, center = train(
         ftc_root=ftc_root,
-        epochs=5,
+        epochs=50,
         batch_size=8,
         device="cuda" if torch.cuda.is_available() else "cpu",
     )
