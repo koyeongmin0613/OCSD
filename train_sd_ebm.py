@@ -484,9 +484,12 @@ def train(cfg: TrainConfig):
             "centroid": w.detach().cpu(),
             "cfg": cfg.__dict__,
         }
-        os.makedirs("checkpoints", exist_ok=True)
-        torch.save(ckpt, f"checkpoints/ftc_bonafide_sd_ebm_ep{ep}.pt")
-        print(f"[Saved] checkpoints/ftc_bonafide_sd_ebm_ep{ep}.pt")
+        save_dir = os.path.expanduser("~/checkpoints_ftc")
+        os.makedirs(save_dir, exist_ok=True)
+        
+        save_path = os.path.join(save_dir, f"ftc_bonafide_sd_ebm_ep{ep}.pt")
+        torch.save(ckpt, save_path)
+        print(f"[Saved] {save_path}")
 
     print("Done.")
 
@@ -521,7 +524,7 @@ if __name__ == "__main__":
 
 # python train_sd_ebm.py \
 #   --root /mnt/c/Users/User/Desktop/Dataset/FTC/dataset/wav \
-#   --epochs 5 \
+#   --epochs 30 \
 #   --batch_size 16 \
 #   --lr 2e-4 \
 #   --m1 0.8 \
