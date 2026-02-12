@@ -490,8 +490,6 @@ def train(cfg: TrainConfig):
 
     print("Done.")
 
-print("len(ds) =", len(ds))
-print("len(dl) =", len(dl))
 
 if __name__ == "__main__":
     # 예시: python train_ftc_bonafide_sd_ebm.py --root /path/to/ftc_robocall
@@ -521,12 +519,12 @@ if __name__ == "__main__":
     )
     train(cfg)
 
-# python train_sd_ebm.py \
-#   --root /mnt/c/Users/User/Desktop/Dataset/FTC/dataset/wav \
-#   --epochs 10 \
-#   --batch_size 16 \
-#   --lr 2e-4 \
-#   --m1 0.8 \
-#   --lambda_sd 0.7 \
-#   --lambda_oc 1.0 \
-#   --use_var
+python train_sd_ebm.py \
+  --root /mnt/c/Users/User/Desktop/Dataset/FTC/dataset/wav \
+  --epochs 10 \
+  --batch_size 16 \
+  --lr 2e-4 \
+  --m1 0.8 \
+  --lambda_sd 0.7 \
+  --lambda_oc 1.0 \
+  --use_var
