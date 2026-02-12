@@ -341,7 +341,7 @@ class TrainConfig:
     # augmentation
     crop2_seconds: float = 3.0  # 논문처럼 2번째는 더 짧게 crop 후 augment
     seed: int = 0
-    num_workers: int = 2
+    num_workers: int = 0
     device: str = "cuda" if torch.cuda.is_available() else "cpu"
 
 

@@ -24,6 +24,3 @@ __pycache__/
 
 # mac
 .DS_Store
-
-robocall_check.py
-only_self_distillation.py
