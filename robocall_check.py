@@ -40,3 +40,10 @@ hi_ratio = [r[2] for r in rows]
 print("SR unique:", sorted(set(srs)))
 print("Mid(300~3400)/Total mean:", float(np.mean(mid_ratio)))
 print("High(>=4k)/Total mean:", float(np.mean(hi_ratio)))
+
+python baseline.py \
+  --ftc_root /mnt/c/Users/User/Desktop/Dataset/FTC/dataset/wav \
+  --epochs 50 \
+  --batch_size 8 \
+  --device cuda
+
