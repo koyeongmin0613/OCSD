@@ -276,4 +276,3 @@ if __name__ == "__main__":
 
     torch.save({"model": student.state_dict(), "center": center.detach().cpu()}, args.save_path)
     print("Saved:", args.save_path)
-
