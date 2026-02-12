@@ -187,7 +187,7 @@ class BridgeBackend(nn.Module):
     - layer attention weight alpha -> weighted sum feature map
     - ASP-like pooling: mean+std -> embedding
     """
-    def __init__(self, w2v_hidden: int = 1024, d1: int = 128, d2: int = 128, emb_dim: int = 160, num_layers: int = 24):
+    def __init__(self, w2v_hidden: int = 1024, d1: int = 128, d2: int = 128, emb_dim: int = 160, num_layers: int = 12):
         super().__init__()
         self.num_layers = num_layers
         self.proj1 = nn.ModuleList([nn.Linear(w2v_hidden, d1) for _ in range(num_layers)])
@@ -247,10 +247,9 @@ class StudentModel(nn.Module):
         self.head = BridgeBackend(w2v_hidden=self.w2v.config.hidden_size, num_layers=num_layers)
 
     def forward(self, wav: torch.Tensor) -> torch.Tensor:
-        # wav: (B,T)
-        out = self.w2v(wav)  # hidden_states: tuple length (L+1) includes conv/embedding
-        hidden = list(out.hidden_states)
-        # 보통 hidden_states[1:]이 transformer layers, 모델마다 다를 수 있어서 "앞에서 num_layers" 사용
+        with torch.no_grad():
+            out = self.w2v(wav)
+            hidden = list(out.hidden_states)
         return self.head(hidden[: self.head.num_layers])
 
 
@@ -356,7 +355,7 @@ def train(cfg: TrainConfig):
         sample_rate=cfg.sample_rate,
         max_seconds=cfg.max_seconds,
         only_en=True,
-        max_items=None,
+        max_items=20000,
         seed=cfg.seed,
     )
     dl = torch.utils.data.DataLoader(
@@ -491,6 +490,8 @@ def train(cfg: TrainConfig):
 
     print("Done.")
 
+print("len(ds) =", len(ds))
+print("len(dl) =", len(dl))
 
 if __name__ == "__main__":
     # 예시: python train_ftc_bonafide_sd_ebm.py --root /path/to/ftc_robocall
@@ -519,3 +520,13 @@ if __name__ == "__main__":
         use_var=args.use_var,
     )
     train(cfg)
+
+# python train_sd_ebm.py \
+#   --root /mnt/c/Users/User/Desktop/Dataset/FTC/dataset/wav \
+#   --epochs 10 \
+#   --batch_size 16 \
+#   --lr 2e-4 \
+#   --m1 0.8 \
+#   --lambda_sd 0.7 \
+#   --lambda_oc 1.0 \
+#   --use_var
