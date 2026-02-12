@@ -1,0 +1,9 @@
+torch
+torchaudio
+torchcodec
+transformers
+pandas
+numpy
+scipy
+matplotlib
+soundfile
