@@ -383,7 +383,7 @@ def score_batch(model, center, wav, tta_k=1, device="cpu"):
 #     return stats
 
 if __name__ == "__main__":
-    ftc_root = "/Users/koyoungmin/Desktop/SCAI/Dataset/robocall-audio-dataset-main"  # metadata.csv 있는 폴더로 수정
+    ftc_root = "/mnt/c/Users/User/Desktop/Dataset/FTC/dataset/wav"  # metadata.csv 있는 폴더로 수정
     student, center = train(
         ftc_root=ftc_root,
         epochs=5,
@@ -396,3 +396,5 @@ if __name__ == "__main__":
         "ftc_ocsd_student.pt"
     )
     print("Saved: ftc_ocsd_student.pt")
+
+# python "/mnt/c/Users/User/Desktop/SCAI/project2/OCSD/only_self_distillation.py"
